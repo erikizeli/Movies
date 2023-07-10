@@ -1,5 +1,5 @@
-INSERT INTO seats (id, seat_number, reserved, booked, user_id)
-SELECT id, id, 0, 0, NULL 
+INSERT INTO seats (id, seat_number, reserved, booked)
+SELECT id, id, 1, 1 
 FROM (
 	SELECT	1	AS	id	UNION	ALL
 	SELECT	2	AS	id	UNION	ALL
@@ -26,9 +26,19 @@ FROM (
 	SELECT	23	AS	id	UNION	ALL
 	SELECT	24	AS	id	UNION	ALL
 	SELECT	25	AS	id	UNION	ALL
-	SELECT	26	AS	id	UNION	ALL
+	SELECT	26	AS	id	
+) AS seq;
+
+INSERT INTO seats (id, seat_number, reserved, booked)
+SELECT id, id, 0, 0 
+FROM (
 	SELECT	27	AS	id	UNION	ALL
-	SELECT	28	AS	id	UNION	ALL
+	SELECT	28	AS	id	
+) AS seq;
+
+INSERT INTO seats (id, seat_number, reserved, booked)
+SELECT id, id, 1, 1 
+FROM (
 	SELECT	29	AS	id	UNION	ALL
 	SELECT	30	AS	id	UNION	ALL
 	SELECT	31	AS	id	UNION	ALL

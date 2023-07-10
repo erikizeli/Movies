@@ -19,8 +19,8 @@ export default function MoviePage() {
   const navigate = useNavigate()
 
   function handleColorChange(seat, seat_id){
-    const asd = seatId.includes(seat_id)
-    if (asd) {
+    const isSeatId = seatId.includes(seat_id)
+    if (isSeatId) {
       const filteredList = seatsToBook.filter(e=> e != seat_id)
       const filteredId = seatId.filter(e => e != seat_id)
       
