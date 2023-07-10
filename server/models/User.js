@@ -2,7 +2,6 @@ const { dataBase } = require("../config/index")
 
 const User = {
   create: function(user, callback) {
-    console.log(user.body.userEmail)
     const element = user.body.seat_id
     const data = JSON.stringify(element)
     

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Seats from '../components/Seats'
 import { io } from 'socket.io-client'
 import { reserve } from "../controllers/BookingController" 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const socket = io("http://localhost:3000", {
   reconnection: true,
@@ -16,6 +16,7 @@ export default function MoviePage() {
   const [seats, setSeats] = useState()
   const [seatsToBook, setSeatsToBook] = useState([])
   const [seatId, setSeatId] = useState([])
+  const navigate = useNavigate()
 
   function handleColorChange(seat, seat_id){
     const asd = seatId.includes(seat_id)
@@ -51,6 +52,8 @@ export default function MoviePage() {
     if (seatId.length > 0 && !isReserved) {
        socket.emit('changeColor', (seatId));
       reserve(seatId)
+      const state = seatId
+      navigate("/booking", {state} )
     } else if (isReserved) {
       alert("This seat is reserved")
     }
@@ -91,7 +94,7 @@ export default function MoviePage() {
             {seats && seats.map((e,i)=>{return <Seats key={i} seat={e} seatId={seatId} onColorChange={handleColorChange}/>})}
           </div>
           <div className='bg-cyan-400 w-fit p-2 rounded-xl justify-center mt-5'>
-            <NavLink to="/booking" state={seatsToBook}><button onClick={()=>reserveSeats(seatId)} >Reserve</button></NavLink>
+            <button onClick={()=>reserveSeats(seatId)} >Reserve</button>
           </div>
         </div>
       </div>

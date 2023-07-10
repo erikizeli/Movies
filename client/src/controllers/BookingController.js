@@ -17,7 +17,6 @@ const reserve = async (seatList) => {
 const cancelReserve = async (seatList) => {
 
   const obj = {seatList:seatList}
-  console.log(obj)
 
   const response = await fetch("http://localhost:3000/api/cancelreserve",{
     headers:{ "Content-Type": "application/json" },
@@ -31,18 +30,19 @@ const cancelReserve = async (seatList) => {
 
 const finalBooking = async (seatList, userEmail,) => {
   try {
-    await bookSeats(seatList)
+    await bookSeats(userEmail, seatList)
     await createUser(userEmail, seatList)
   } catch (error) {
     console.error(error)
   }
 }
 
-const bookSeats = async (seatList) => {
+const bookSeats = async (userEmail,seatList) => {
   const obj = {
+    userEmail:userEmail,
     seatList:seatList
   }
-
+  
   const response = await fetch("http://localhost:3000/api/book",{
     headers:{ "Content-Type": "application/json" },
     method: 'PUT',
@@ -61,7 +61,6 @@ const createUser = async (userEmail, seatList) => {
   for (let i = 0; i < seatList.length; i++) {
     obj.seat_id[i] = seatList[i];
   }
-
   
   const response = await fetch("http://localhost:3000/user/createuser", {
     headers: { "Content-Type": "application/json" },
